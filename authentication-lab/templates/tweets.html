@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tweet</title>
+</head>
+<body>
+    <h1>All Tweets</h1>
+    <div id="tweetContainer"></div>
+
+    <script>
+        // Function to fetch and display tweets
+        function fetchTweets() {
+            fetch('/all_tweets') // Replace '/all_tweets' with the endpoint to fetch the tweets from the server
+                .then(response => response.json())
+                .then(data => {
+                    const tweetContainer = document.getElementById('tweetContainer');
+                    tweetContainer.innerHTML = '';
+
+                    for (const tweet of data) {
+                        const tweetDiv = document.createElement('div');
+                        tweetDiv.innerHTML = `<h3>${tweet.title}</h3><p>${tweet.tweet}</p>`;
+                        tweetContainer.appendChild(tweetDiv);
+                    }
+                })
+                .catch(error => console.error('Error fetching tweets:', error));
+        }
+
+        // Call the function to fetch and display tweets when the page loads
+        fetchTweets();
+    </script>
+</body>
+</html>

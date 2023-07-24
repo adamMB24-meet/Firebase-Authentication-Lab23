@@ -27,41 +27,43 @@ def signin():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        try:
-            login_session['user'] = auth.sign_in_user_with_email_and_password(email, password)
-            return redirect(url_for('add_tweet'))
-        except:
-            error = "Authentication failed"
+        #try:
+        login_session['user'] = auth.sign_in_with_email_and_password(email, password)
+        return redirect(url_for('add_tweet'))
+      #  except:
+            #error = "Authentication failed"
     return render_template("signin.html")
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     error = ""
-    if request.method == 'POST':
+    if request.method == 'GET':
+       return render_template("signup.html")
+    else:   
         email = request.form['email']
         password = request.form['password']
-        try:
-            login_session['user'] = auth.create_user_with_email_and_password(email, password)
-            UID = login_session['user']['localId']
-            user = {"full_name": "Adam Meisler", "email": "a@gmail.com","username": "adamrmb07","bio": "Hi my name is adam, Im a Y2 student in MEET..."}
-            db.child("Users").child(UID).set(user)
-            return redirect(url_for('add_tweet'))
-        except:
-            error = "Authentication failed"
-            return render_template("signup.html", error=error)
+        #try:
+        login_session['user'] = auth.create_user_with_email_and_password(email, password)
+        UID = login_session['user']['localId']
+        user = {"full_name": "Adam Meisler", "email": "a@gmail.com","username": "adamrmb07","bio": "Hi my name is adam, Im a Y2 student in MEET..."}
+        db.child("Users").child(UID).set(user)
+        return redirect(url_for('add_tweet'))
+        #except:
+            #error = "Authentication failed"
+            #return render_template("signup.html", error=error)
 
 @app.route('/add_tweet', methods=['GET', 'POST'])
 def add_tweet():
     if request.method == 'POST':
-        try:
-            UID = login_session['user']['localId']
-            tweet = {"title": request.form['title'], "tweet": request.form['tweet']}
-            db.child("Tweet").push(tweet)
-            return redirect(url_for('add_tweet'))
-        except:
-            print("Couldn't add tweet")
-            return redirect(url_for('add_tweet'))
-    return render_template("add_tweet.html")
+        #try:
+        UID = login_session['user']['localId']
+        tweet = {"title": request.form['title'], "tweet": request.form['tweet']}
+        db.child("Tweet").push(tweet)
+        return render_template("add_tweet.html")
+        #except:
+            #print("Couldn't add tweet")
+           # return redirect(url_for('add_tweet'))
+    #return render_template("add_tweet.html")
 
 @app.route('/all_tweets', methods=['GET'])
 def all_tweets():

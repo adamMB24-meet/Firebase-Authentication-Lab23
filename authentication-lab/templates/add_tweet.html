@@ -5,12 +5,12 @@
     <title>Tweet</title>
 </head>
 <body>
-   <form method="post" action="/add_tweet">
+    <form method="post" action="/add_tweet">
         <!-- Title -->
         <div>
             <label>Title*</label>
             <div>
-              <input type="text" name="title" maxlength="280">  
+                <input type="text" name="title" maxlength="280">
             </div>
         </div>
 
@@ -18,17 +18,18 @@
         <div>
             <label>Tweet*</label>
             <div>
-              <input type="text" name="tweet" maxlength="280">  
+                <input type="text" name="tweet" maxlength="280">
             </div>
         </div>
+
         <!-- Post Tweet Button -->
         <div>
-            <input type="Post"/>
+            <input type="submit" value="Post Tweet">
         </div>
     </form>
     <br>
-    <a href="/"><button>Post Tweet</button></a>
-
-
+    <a href="/">
+        <button>Cancel</button>
+    </a>
 </body>
 </html>
